@@ -119,7 +119,7 @@
             </div>
             
             <div class="flex space-x-3">
-                <button class="copy-btn flex-1 hover:bg-green-600 border py-2 px-4 rounded-lg text-sm font-medium transition-colors flex items-center justify-center" data-number="${service.number}" data-name="${service.englishName}">
+                <button class="copy-btn flex-1 hover:bg-red-400 border py-2 px-4 rounded-lg text-sm font-medium transition-colors flex items-center justify-center" data-number="${service.number}" data-name="${service.englishName}">
                     <i class="fas fa-copy mr-2"></i> Copy
                 </button>
                 <button class="call-btn flex-1 bg-green-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors flex items-center justify-center" data-number="${service.number}" data-name="${service.englishName}">
@@ -176,7 +176,7 @@
                     const name = btn.getAttribute('data-name');
                     
                     if (coinCount < 20) {
-                        alert('⚠️ Insufficient coins! You need at least 20 coins to make a call.');
+                        alert('⚠️ Insufficient coins!! You need at least 20 coins to make a call.');
                         return;
                     }
                     
