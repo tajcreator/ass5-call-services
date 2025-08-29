@@ -1,291 +1,265 @@
-//  const services = [
-//             {
-//                 id: 1,
-//                 icon: 'fas fa-ambulance',
-//                 name: 'Ambulance',
-//                 nameEn: 'Medical Emergency',
-//                 number: '199',
-//                 category: 'Medical'
-//             },
-//             {
-//                 id: 2,
-//                 icon: 'fas fa-fire-extinguisher',
-//                 name: 'Fire Department',
-//                 nameEn: 'Fire Emergency',
-//                 number: '161',
-//                 category: 'Fire'
-//             },
-//             {
-//                 id: 3,
-//                 icon: 'fas fa-shield-alt',
-//                 name: 'Police',
-//                 nameEn: 'Police Emergency',
-//                 number: '166',
-//                 category: 'Security'
-//             },
-//             {
-//                 id: 4,
-//                 icon: 'fas fa-child',
-//                 name: 'Child Protection',
-//                 nameEn: 'Child Helpline',
-//                 number: '1098',
-//                 category: 'Social'
-//             },
-//             {
-//                 id: 5,
-//                 icon: 'fas fa-heartbeat',
-//                 name: 'Health Advice',
-//                 nameEn: 'Health Helpline',
-//                 number: '16263',
-//                 category: 'Medical'
-//             },
-//             {
-//                 id: 6,
-//                 icon: 'fas fa-exclamation-triangle',
-//                 name: 'Disaster Management',
-//                 nameEn: 'Disaster Helpline',
-//                 number: '1090',
-//                 category: 'Emergency'
-//             }
-//         ];
+   // Emergency services data
+        const emergencyServices = [
+            {
+                name: "National Emergency Number",
+                englishName: "National Emergency ",
+                number: "999",
+                image: "assets/emergency.png",
+                category: "All",
+                categoryColor: "bg-red-100 text-red-800"
+            },
+            {
+                name: "Police Helpline Number",
+                englishName: "Police",
+                number: "999 ",
+               image: "assets/police.png",
+                category: "Police",
+                categoryColor: "bg-orange-100 text-orange-800"
+            },
+            {
+                name: "Fire Service Number",
+                englishName: "Fire Service Number",
+                number: "999 ",
+               image: "assets/fire-service.png",
+                category: "Fire ",
+                categoryColor: "bg-blue-100 text-blue-800"
+            },
+            {
+                name: " Ambulance Service ",
+                englishName: "Ambulance",
+                number: "1994-999999",
+                image: "assets/ambulance.png",
+                category: "Health",
+                categoryColor: "bg-green-100 text-green-800"
+            },
+            { 
+                name: "Women & Child Helpline",
+                englishName: "Women & Child Helpline",
+                number: "109",
+                 image: "assets/emergency.png ",
+                category: "Help ",
+                categoryColor: "bg-purple-100 text-purple-800"
+            },
+            {
+                name: "Anti-Corruption Helpline",
+                englishName: "Anti-Corruption ",
+                number: "106",
+                image: "assets/emergency.png ",
+                category: "Govt.",
+                categoryColor: "bg-indigo-100 text-indigo-800"
+            },
+            {
+                name: "Electricity Helpline",
+                englishName: "Electricity Outage",
+                number: "16216",
+                 image: "assets/emergency.png",
+                category: "Electricity",
+                categoryColor: "bg-yellow-100 text-yellow-800"
+            },
+            {
+                name: "Brac Helpline",
+                englishName: "Brac",
+                number: "16123",
+                image: "assets/emergency.png",
+                category: "NGO",
+                categoryColor: "bg-yellow-100 text-yellow-800"
+            },
+            {
+                name: "Bangladesh Railway Helpline ",
+                englishName: "Bangladesh Railway",
+                number: "163",
+                image: "assets/emergency.png",
+                category: "Travel ",
+                categoryColor: "bg-blue-100 text-blue-800"
+            }
+        ];
 
-//         // DOM Elements
-//         const cardSection = document.getElementById('card-section');
-//         const historyList = document.getElementById('history-list');
-//         const emptyHistory = document.getElementById('empty-history');
-//         const clearHistoryBtn = document.getElementById('clear-history');
-//         const heartCount = document.getElementById('heart-count');
-//         const coinCount = document.getElementById('coin-count');
-//         const copyCount = document.getElementById('copy-count');
-//         const alertContainer = document.getElementById('alert-container');
+        // State variables
+        let heartCount = 0;
+        let coinCount = 100;
+        let copyCount = 0;
+        let callHistory = [];
 
-//         // State variables
-//         let hearts = 0;
-//         let coins = 100;
-//         let copies = 0;
-//         let callHistory = [];
+        // DOM elements
+        const heartCountEl = document.getElementById('heartCount');
+        const coinCountEl = document.getElementById('coinCount');
+        const copyCountEl = document.getElementById('copyCount');
+        const cardsContainer = document.getElementById('cardsContainer');
+        const historyContainer = document.getElementById('historyContainer');
+        const clearHistoryBtn = document.getElementById('clearHistoryBtn');
 
-//         // Initialize the page
-//         function init() {
-//             renderCards();
-//             updateUI();
-//             loadFromLocalStorage();
-//         }
-
-//         // Render service cards
-//         function renderCards() {
-//             cardSection.innerHTML = '';
-            
-//             services.forEach(service => {
-//                 const card = document.createElement('div');
-//                 card.className = 'card';
-//                 card.innerHTML = `
-//                     <div class="card-header">
-//                         <i class="${service.icon} card-icon"></i>
-//                         <i class="far fa-heart card-heart" data-id="${service.id}"></i>
-//                     </div>
-//                     <div class="card-body">
-//                         <h3 class="card-title">${service.name}</h3>
-//                         <p class="card-subtitle">${service.nameEn}</p>
-//                         <div class="card-number">${service.number}</div>
-//                         <span class="card-badge">${service.category}</span>
-//                     </div>
-//                     <div class="card-footer">
-//                         <button class="btn btn-copy" data-number="${service.number}">
-//                             <i class="far fa-copy"></i> Copy
-//                         </button>
-//                         <button class="btn btn-call" data-id="${service.id}" data-name="${service.name}" data-number="${service.number}">
-//                             <i class="fas fa-phone"></i> Call
-//                         </button>
-//                     </div>
-//                 `;
-//                 cardSection.appendChild(card);
-//             });
-            
-//             // Add event listeners to card buttons
-//             addCardEventListeners();
-//         }
-
-//         // Add event listeners to card buttons
-//         function addCardEventListeners() {
-//             // Heart icons
-//             document.querySelectorAll('.card-heart').forEach(heart => {
-//                 heart.addEventListener('click', function() {
-//                     const id = this.getAttribute('data-id');
-//                     handleHeartClick(id, this);
-//                 });
-//             });
-            
-//             // Copy buttons
-//             document.querySelectorAll('.btn-copy').forEach(button => {
-//                 button.addEventListener('click', function() {
-//                     const number = this.getAttribute('data-number');
-//                     handleCopyClick(number);
-//                 });
-//             });
-            
-//             // Call buttons
-//             document.querySelectorAll('.btn-call').forEach(button => {
-//                 button.addEventListener('click', function() {
-//                     const id = this.getAttribute('data-id');
-//                     const name = this.getAttribute('data-name');
-//                     const number = this.getAttribute('data-number');
-//                     handleCallClick(id, name, number);
-//                 });
-//             });
-//         }
-
-//         // Handle heart icon click
-//         function handleHeartClick(id, element) {
-//             if (element.classList.contains('active')) {
-//                 return; // Already liked
-//             }
-            
-//             element.classList.remove('far');
-//             element.classList.add('fas', 'active');
-//             hearts++;
-//             updateUI();
-//             showAlert('Success', 'Service added to favorites!', 'success');
-//         }
-
-//         // Handle copy button click
-//         function handleCopyClick(number) {
-//             // Copy to clipboard
-//             navigator.clipboard.writeText(number).then(() => {
-//                 copies++;
-//                 updateUI();
-//                 showAlert('Copied!', `Number ${number} copied to clipboard`, 'success');
-//             }).catch(err => {
-//                 console.error('Failed to copy: ', err);
-//                 showAlert('Error', 'Failed to copy number', 'error');
-//             });
-//         }
-
-//         // Handle call button click
-//         function handleCallClick(id, name, number) {
-//             if (coins < 20) {
-//                 showAlert('Insufficient Coins', 'You need at least 20 coins to make a call', 'error');
-//                 return;
-//             }
-            
-//             // Deduct coins
-//             coins -= 20;
-            
-//             // Add to call history
-//             const now = new Date();
-//             const timeString = now.toLocaleTimeString();
-//             const historyItem = {
-//                 id: Date.now(),
-//                 serviceId: id,
-//                 name,
-//                 number,
-//                 time: timeString
-//             };
-            
-//             callHistory.unshift(historyItem);
-//             updateCallHistory();
-//             updateUI();
-            
-//             showAlert('Calling...', `Connecting to ${name} at ${number}`, 'success');
-            
-//             // Save to localStorage
-//             saveToLocalStorage();
-//         }
-
-//         // Update call history UI
-//         function updateCallHistory() {
-//             if (callHistory.length === 0) {
-//                 emptyHistory.style.display = 'block';
-//                 historyList.innerHTML = '';
-//                 return;
-//             }
-            
-//             emptyHistory.style.display = 'none';
-//             historyList.innerHTML = '';
-            
-//             callHistory.forEach(item => {
-//                 const li = document.createElement('li');
-//                 li.className = 'history-item';
-//                 li.innerHTML = `
-//                     <div class="history-info">
-//                         <span class="history-name">${item.name}</span>
-//                         <span class="history-number">${item.number}</span>
-//                     </div>
-//                     <span class="history-time">${item.time}</span>
-//                 `;
-//                 historyList.appendChild(li);
-//             });
-//         }
-
-//         // Update UI counters
-//         function updateUI() {
-//             heartCount.textContent = hearts;
-//             coinCount.textContent = coins;
-//             copyCount.textContent = copies;
-//         }
-
-//         // Show alert message
-//         function showAlert(title, message, type) {
-//             const alert = document.createElement('div');
-//             alert.className = `alert alert-${type}`;
-//             alert.innerHTML = `
-//                 <i class="alert-icon ${type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle'}"></i>
-//                 <div class="alert-content">
-//                     <div class="alert-title">${title}</div>
-//                     <div class="alert-message">${message}</div>
-//                 </div>
-//             `;
-            
-//             alertContainer.appendChild(alert);
-            
-//             // Trigger reflow
-//             void alert.offsetWidth;
-            
-//             alert.classList.add('show');
-            
-//             // Remove alert after 3 seconds
-//             setTimeout(() => {
-//                 alert.classList.remove('show');
-//                 setTimeout(() => {
-//                     alertContainer.removeChild(alert);
-//                 }, 300);
-//             }, 3000);
-//         }
-
-//         // Save data to localStorage
-//         function saveToLocalStorage() {
-//             const data = {
-//                 hearts,
-//                 coins,
-//                 copies,
-//                 callHistory
-//             };
-            
-//             localStorage.setItem('emergencyAppData', JSON.stringify(data));
-//         }
-
-//         // Load data from localStorage
-//         function loadFromLocalStorage() {
-//             const data = JSON.parse(localStorage.getItem('emergencyAppData'));
-            
-//             if (data) {
-//                 hearts = data.hearts || 0;
-//                 coins = data.coins || 100;
-//                 copies = data.copies || 0;
-//                 callHistory = data.callHistory || [];
+        // Generate cards
+    function generateCards() {
+    cardsContainer.innerHTML = '';
+    emergencyServices.forEach((service, index) => {
+        const card = document.createElement('div');
+        // আগের মতো p-6 রাখছি, শুধু width বাড়ানো হলো
+        card.className =
+            'bg-white rounded-lg shadow-md p-6 card-hover cursor-pointer border border-gray-200 w-[300px] max-w-lg'; 
+        card.innerHTML = `
+            <div class="flex justify-between items-start mb-4">
+                <div class="flex items-center space-x-3">
+                    <img src="${service.image}" alt="${service.englishName}" class="w-10 h-10 object-contain" />
+                    <div>
+                        <h3 class="font-bold text-gray-800">${service.name}</h3>
+                        <p class="text-sm text-gray-600">${service.englishName}</p>
+                    </div>
+                </div>
                 
-//                 updateUI();
-//                 updateCallHistory();
-//             }
-//         }
+                <button class="heart-btn text-2xl text-gray-400 hover:text-red-500 transition-colors -mt-2" data-index="${index}">
+                    <i class="fa-regular fa-heart"></i>
+                </button>
+            </div>
+            
+            <div class="mb-4">
+                <div class="text-2xl font-bold mb-2">${service.number}</div>
+                <span class="inline-block px-3 py-1 rounded-full text-xs font-medium ${service.categoryColor}">
+                    ${service.category}
+                </span>
+            </div>
+            
+            <div class="flex space-x-3">
+                <button class="copy-btn flex-1 hover:bg-green-600 border py-2 px-4 rounded-lg text-sm font-medium transition-colors flex items-center justify-center" data-number="${service.number}" data-name="${service.englishName}">
+                    <i class="fas fa-copy mr-2"></i> Copy
+                </button>
+                <button class="call-btn flex-1 bg-green-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors flex items-center justify-center" data-number="${service.number}" data-name="${service.englishName}">
+                    <i class="fas fa-phone mr-2"></i> Call
+                </button>
+            </div>
+        `;
+        cardsContainer.appendChild(card);
+    });
+    // Add event listeners
+            addEventListeners();
+}
 
-//         // Clear history
-//         clearHistoryBtn.addEventListener('click', function() {
-//             callHistory = [];
-//             updateCallHistory();
-//             saveToLocalStorage();
-//             showAlert('History Cleared', 'All call history has been removed', 'success');
-//         });
+      
+ 
 
-//         // Initialize the application
-//         init();
+ 
+      
+
+        // Add event listeners
+        function addEventListeners() {
+            // Heart buttons
+            document.querySelectorAll('.heart-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    heartCount++;
+                    heartCountEl.textContent = heartCount;
+                    btn.classList.add('heart-animation');
+                    btn.style.color = '#ef4444';
+                    setTimeout(() => btn.classList.remove('heart-animation'), 500);
+                });
+            });
+
+            // Copy buttons
+            document.querySelectorAll('.copy-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const number = btn.getAttribute('data-number');
+                    const name = btn.getAttribute('data-name');
+                    
+                    copyToClipboard(number);
+                    copyCount++;
+                    copyCountEl.textContent = copyCount;
+                    
+                    alert(`📋 Hotline number ${number} for ${name} has been copied to clipboard!`);
+                });
+            });
+
+            // Call buttons
+            document.querySelectorAll('.call-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const number = btn.getAttribute('data-number');
+                    const name = btn.getAttribute('data-name');
+                    
+                    if (coinCount < 20) {
+                        alert('⚠️ Insufficient coins! You need at least 20 coins to make a call.');
+                        return;
+                    }
+                    
+                    coinCount -= 20;
+                    coinCountEl.textContent = coinCount;
+                    
+                    alert(`📞 Calling ${name} at ${number}. 20 coins deducted.`);
+                    
+                    addToHistory(name, number);
+                });
+            });
+        }
+
+        // Copy to clipboard function
+        async function copyToClipboard(text) {
+            try {
+                await navigator.clipboard.writeText(text);
+            } catch (err) {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+            }
+        }
+
+        // Add to call history
+        function addToHistory(name, number) {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', { 
+                hour12: true, 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit' 
+            });
+            
+            const historyItem = {
+                name: name,
+                number: number,
+                time: timeString,
+                date: now.toLocaleDateString()
+            };
+            
+            callHistory.unshift(historyItem);
+            updateHistoryDisplay();
+        }
+
+        // Update history display
+        function updateHistoryDisplay() {
+            if (callHistory.length === 0) {
+                historyContainer.innerHTML = '<p class="text-gray-500 text-center py-8">No call history yet</p>';
+                return;
+            }
+            
+            historyContainer.innerHTML = callHistory.map(item => `
+                <div class="bg-gray-50 rounded-lg p-4 border-l-4 border-blue-500">
+                    <div class="font-semibold text-gray-800">${item.name}</div>
+                    <div class="text-blue-600 font-mono">${item.number}</div>
+                    <div class="text-xs text-gray-500 mt-2">
+                        <i class="fas fa-clock mr-1"></i>
+                        ${item.time} - ${item.date}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Clear history
+        clearHistoryBtn.addEventListener('click', () => {
+            if (callHistory.length === 0) {
+                alert('📋 Call history is already empty!');
+                return;
+            }
+            
+            if (confirm('🗑️ Are you sure you want to clear all call history?')) {
+                callHistory = [];
+                updateHistoryDisplay();
+                alert('✅ Call history has been cleared successfully!');
+            }
+        });
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', () => {
+            generateCards();
+        });
