@@ -89,7 +89,7 @@
         const clearHistoryBtn = document.getElementById('clearHistoryBtn');
 
         // Generate cards
-    function generateCards() {
+   function generateCards() {
     cardsContainer.innerHTML = '';
     emergencyServices.forEach((service, index) => {
         const card = document.createElement('div');
@@ -97,11 +97,14 @@
         card.className =
             'bg-white rounded-lg shadow-md p-6 card-hover cursor-pointer border border-gray-200 w-[300px] max-w-lg'; 
         card.innerHTML = `
-           <img src="${service.image}" alt="${service.englishName}" class="w-10 h-10 object-contain" />
+           <img 
+                src="${service.image}" 
+                alt="${service.englishName}" 
+                class="w-8 h-8 ${index === 1 ? 'bg-blue-200' : 'bg-red-200'} p-2 rounded-lg object-contain" 
+            />
+           
             <div class="flex justify-between items-start mb-4">
-            
                 <div class="flex items-center space-x-3">
-                  
                     <div>
                         <h3 class="font-bold text-gray-800">${service.name}</h3>
                         <p class="text-sm text-gray-600">${service.englishName}</p>
@@ -132,7 +135,7 @@
         cardsContainer.appendChild(card);
     });
     // Add event listeners
-            addEventListeners();
+    addEventListeners();
 }
 
       
