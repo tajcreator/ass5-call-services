@@ -97,16 +97,18 @@
         card.className =
             'bg-white rounded-lg shadow-md p-6 card-hover cursor-pointer border border-gray-200 w-[300px] max-w-lg'; 
         card.innerHTML = `
+           <img src="${service.image}" alt="${service.englishName}" class="w-10 h-10 object-contain" />
             <div class="flex justify-between items-start mb-4">
+            
                 <div class="flex items-center space-x-3">
-                    <img src="${service.image}" alt="${service.englishName}" class="w-10 h-10 object-contain" />
+                  
                     <div>
                         <h3 class="font-bold text-gray-800">${service.name}</h3>
                         <p class="text-sm text-gray-600">${service.englishName}</p>
                     </div>
                 </div>
                 
-                <button class="heart-btn text-2xl text-gray-400 hover:text-red-500 transition-colors -mt-2" data-index="${index}">
+                <button class="heart-btn text-xl text-gray-400 hover:text-red-500 transition-colors -mt-8" data-index="${index}">
                     <i class="fa-regular fa-heart"></i>
                 </button>
             </div>
