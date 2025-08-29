@@ -93,7 +93,7 @@
     cardsContainer.innerHTML = '';
     emergencyServices.forEach((service, index) => {
         const card = document.createElement('div');
-        // আগের মতো p-6 রাখছি, শুধু width বাড়ানো হলো
+        
         card.className =
             'bg-white rounded-lg shadow-md p-6 card-hover cursor-pointer border border-gray-200 w-[300px] max-w-lg'; 
         card.innerHTML = `
